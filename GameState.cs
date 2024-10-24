@@ -96,6 +96,9 @@ namespace SnakeApp
             Direction = direction;
         }
 
-
+        private bool GridBoundary(Position position)
+        {
+            return position._Row < 0 || position._Row >= _Rows || position._Column < 0 || position._Column >= _Columns;
+        }
     }
 }
