@@ -9,7 +9,7 @@ namespace SnakeApp
         public Grid[,] _Grid { get; }
         public Direction Direction { get; private set; }
         public int _Score { get; private set; }
-        public int _GameOver { get; private set; }
+        public bool _GameOver { get; private set; }
 
         private readonly LinkedList<Position> _Positions = new LinkedList<Position>();
         private readonly Random _Random = new Random();
@@ -108,7 +108,34 @@ namespace SnakeApp
                 return Grid.Outside;
             }
 
+            if (headPosition == BottomPosition())
+            {
+                return Grid.Empty;
+            }
+
             return _Grid[headPosition._Row, headPosition._Column];
+        }
+
+        public void Move()
+        {
+            Position headPosition = HeadPosition().Translate(Direction);
+            Grid hit = HitDetection(headPosition);
+
+            if (hit == Grid.Outside || hit == Grid.Snake)
+            {
+                _GameOver = true;
+            }
+            else if (hit == Grid.Empty)
+            {
+                RemoveTail();
+                AddHead(headPosition);
+            }
+            else if (hit == Grid.Food)
+            {
+                AddHead(headPosition);
+                _Score++;
+                AddFood();
+            }
         }
     }
 }
