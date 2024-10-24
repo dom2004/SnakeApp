@@ -100,5 +100,15 @@ namespace SnakeApp
         {
             return position._Row < 0 || position._Row >= _Rows || position._Column < 0 || position._Column >= _Columns;
         }
+
+        private Grid HitDetection(Position headPosition)
+        {
+            if (GridBoundary(headPosition))
+            {
+                return Grid.Outside;
+            }
+
+            return _Grid[headPosition._Row, headPosition._Column];
+        }
     }
 }
