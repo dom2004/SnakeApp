@@ -22,8 +22,30 @@ namespace SnakeApp
         public MainWindow()
         {
             InitializeComponent();
+            _images = GridInitialiser();
         }
 
+        private Image[,] GridInitialiser()
+        {
+            Image[,] images = new Image[_rows, _columns];
+            GameGrid.Rows = _rows;
+            GameGrid.Columns = _columns;
 
+            for (int rows = 0; rows < _rows; rows++)
+            {
+                for (int columns = 0; columns < _columns; columns++)
+                {
+                    Image image = new Image
+                    {
+                        Source = Assets.Empty
+                    };
+
+                    images[rows, columns] = image;
+                    GameGrid.Children.Add(image);
+                }
+            }
+
+            return images;
+        }
     }
 }

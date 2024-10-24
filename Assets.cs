@@ -6,12 +6,12 @@ namespace SnakeApp
 {
     public static class Assets
     {
-        public readonly static ImageSource _Empty = LoadAsset("Empty.png");
-        public readonly static ImageSource _Food = LoadAsset("Food.png");
-        public readonly static ImageSource _Body = LoadAsset("Body.png");
-        public readonly static ImageSource _DeadBody = LoadAsset("DeadBody.png");
-        public readonly static ImageSource _DeadHead = LoadAsset("DeadHead.png");
-        public readonly static ImageSource _Head = LoadAsset("Head.png");
+        public readonly static ImageSource Empty = LoadAsset("Empty.png");
+        public readonly static ImageSource Food = LoadAsset("Food.png");
+        public readonly static ImageSource Body = LoadAsset("Body.png");
+        public readonly static ImageSource DeadBody = LoadAsset("DeadBody.png");
+        public readonly static ImageSource DeadHead = LoadAsset("DeadHead.png");
+        public readonly static ImageSource Head = LoadAsset("Head.png");
 
         private static ImageSource LoadAsset(string assetPath)
         {
