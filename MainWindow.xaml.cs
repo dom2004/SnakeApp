@@ -16,9 +16,14 @@ namespace SnakeApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly int _rows = 15, _columns = 15;
+        private readonly Image[,] _images;
+
         public MainWindow()
         {
             InitializeComponent();
         }
+
+
     }
 }
