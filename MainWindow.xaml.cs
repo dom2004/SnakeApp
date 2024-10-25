@@ -16,15 +16,22 @@ namespace SnakeApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private 
+        private readonly Dictionary<Grid, ImageSource> GridToImage = new()
+        {
+            { Grid.Empty, Assets.Empty },
+            { Grid.Snake, Assets.Body },
+            { Grid.Food, Assets.Food }
+        };
 
         private readonly int _rows = 15, _columns = 15;
         private readonly Image[,] _images;
+        private GameState gameState;
 
         public MainWindow()
         {
             InitializeComponent();
             _images = GridInitialiser();
+            gameState = new GameState(_rows, _columns);
         }
 
 
@@ -58,7 +65,19 @@ namespace SnakeApp
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            DrawGrid();
+        }
+
+        private void DrawGrid()
+        {
+            for (int row = 0; row < _rows; row++)
+            {
+                for (int column = 0; column < _columns; column++)
+                {
+                    Grid gridValue = gameState._Grid[row, column];
+                    _images[row, column].Source = GridToImage[gridValue];
+                }
+            }
         }
     }
 }
