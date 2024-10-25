@@ -16,6 +16,8 @@ namespace SnakeApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private 
+
         private readonly int _rows = 15, _columns = 15;
         private readonly Image[,] _images;
 
@@ -24,6 +26,7 @@ namespace SnakeApp
             InitializeComponent();
             _images = GridInitialiser();
         }
+
 
         private Image[,] GridInitialiser()
         {
@@ -46,6 +49,16 @@ namespace SnakeApp
             }
 
             return images;
+        }
+
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
