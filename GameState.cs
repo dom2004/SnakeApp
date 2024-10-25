@@ -7,7 +7,7 @@ namespace SnakeApp
         public int _Rows { get; }
         public int _Columns { get; }
         public Grid[,] _Grid { get; }
-        public Direction Direction { get; private set; }
+        public Direction _direction { get; private set; }
         public int _Score { get; private set; }
         public bool _GameOver { get; private set; }
 
@@ -19,7 +19,7 @@ namespace SnakeApp
             _Rows = rows;
             _Columns = columns;
             _Grid = new Grid[rows, columns];
-            Direction = Direction.Right;
+            _direction = Direction.Right;
 
             AddSnake();
             AddFood();
@@ -93,7 +93,7 @@ namespace SnakeApp
 
         public void ChangeDirection(Direction direction)
         {
-            Direction = direction;
+            _direction = direction;
         }
 
         private bool GridBoundary(Position position)
@@ -118,7 +118,7 @@ namespace SnakeApp
 
         public void Move()
         {
-            Position headPosition = HeadPosition().Translate(Direction);
+            Position headPosition = HeadPosition().Translate(_direction);
             Grid hit = HitDetection(headPosition);
 
             if (hit == Grid.Outside || hit == Grid.Snake)

@@ -60,12 +60,32 @@ namespace SnakeApp
 
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if (gameState._GameOver)
+            {
+                return;
+            }
+
+            switch (e.Key)
+            {
+                case Key.A:
+                    gameState.ChangeDirection(Direction.Left);
+                    break;
+                case Key.D:
+                    gameState.ChangeDirection(Direction.Right);
+                    break;
+                case Key.W:
+                    gameState.ChangeDirection(Direction.Up);
+                    break;
+                case Key.S:
+                    gameState.ChangeDirection(Direction.Down);
+                    break;
+            }
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             DrawGrid();
+            await GameLoop(); 
         }
 
         private void DrawGrid()
@@ -77,6 +97,16 @@ namespace SnakeApp
                     Grid gridValue = gameState._Grid[row, column];
                     _images[row, column].Source = GridToImage[gridValue];
                 }
+            }
+        }
+
+        private async Task GameLoop()
+        {
+            while (!gameState._GameOver)
+            {
+                await Task.Delay(100);
+                gameState.Move();
+                DrawGrid();
             }
         }
     }
