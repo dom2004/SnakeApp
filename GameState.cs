@@ -11,6 +11,7 @@ namespace SnakeApp
         public int _Score { get; private set; }
         public bool _GameOver { get; private set; }
 
+        private readonly LinkedList<Direction> dirChanges = new LinkedList<Direction>();
         private readonly LinkedList<Position> _Positions = new LinkedList<Position>();
         private readonly Random _Random = new Random();
 
@@ -91,9 +92,33 @@ namespace SnakeApp
             _Positions.RemoveLast();
         }
 
+        private Direction GetLastDirection()
+        {
+            if (dirChanges.Count == 0)
+            {
+                return _direction;
+            }
+
+            return dirChanges.Last.Value;
+        }
+
+        private bool CanChangeDirection(Direction direction)
+        {
+            if (dirChanges.Count == 2)
+            {
+                return false;
+            }
+
+            Direction lastDirection = GetLastDirection();
+            return direction != lastDirection && direction != lastDirection.Opposite();
+        }
+
         public void ChangeDirection(Direction direction)
         {
-            _direction = direction;
+            if (CanChangeDirection(direction))
+            {
+                dirChanges.AddLast(direction);
+            }
         }
 
         private bool GridBoundary(Position position)
@@ -118,6 +143,12 @@ namespace SnakeApp
 
         public void Move()
         {
+            if (dirChanges.Count > 0)
+            {
+                _direction = dirChanges.First.Value;
+                dirChanges.RemoveFirst();
+            }
+
             Position headPosition = HeadPosition().Translate(_direction);
             Grid hit = HitDetection(headPosition);
 

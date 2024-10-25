@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace SnakeApp
 {
@@ -84,8 +85,14 @@ namespace SnakeApp
 
         private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            DrawGrid();
+            Draw();
             await GameLoop(); 
+        }
+
+        private void Draw()
+        {
+            DrawGrid();
+            ScoreText.Text = $"SCORE {gameState._Score}";
         }
 
         private void DrawGrid()
