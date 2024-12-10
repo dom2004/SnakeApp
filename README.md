@@ -21,4 +21,32 @@ I made a simple snake app in C# using .NET's WPF framework. This application uti
 ```
 *Figure 2 - Draw Grid Loop Method*
 
-The code block above is a method that contains 2 loops, both for the rows and columns of the grid. The purpose of the method is that method looks for a specific grid asset, which is a small hollow box. This asset is repeated across, until it creates a grid. 
+The code block above is a method that contains 2 loops, both for the rows and columns of the grid. It then draws the grid onto the WPF application window. 
+
+```c#
+ private Image[,] GridInitialiser()
+ {
+     Image[,] images = new Image[_rows, _columns];
+     GameGrid.Rows = _rows;
+     GameGrid.Columns = _columns;
+
+     for (int rows = 0; rows < _rows; rows++)
+     {
+         for (int columns = 0; columns < _columns; columns++)
+         {
+             Image image = new Image
+             {
+                 Source = Assets.Empty
+             };
+
+             images[rows, columns] = image;
+             GameGrid.Children.Add(image);
+         }
+     }
+
+     return images;
+ }
+```
+*Figure 3 - Grid Initialiser Method*
+
+The code block initialises the grid by grabbing the assets from the assets folder, and fills them out with a loop to create a grid. 
